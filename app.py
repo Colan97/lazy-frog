@@ -60,7 +60,7 @@ class UltraFrogCrawler:
         if self.crawl_scope == "exact":
             return url == urljoin(f"https://{self.base_domain}", self.base_path)
         elif self.crawl_scope == "subdomain":
-            return self.base_domain in parsed.netloc
+            return parsed.netloc == self.base_domain or parsed.netloc.endswith("." + self.base_domain)
         else:  # subfolder
             return (parsed.netloc == self.base_domain and 
                    parsed.path.startswith(self.base_path))
